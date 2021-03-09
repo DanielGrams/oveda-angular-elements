@@ -1,0 +1,6 @@
+button.organization-landing-page {
+  outline: none;
+  user-select: none;
+  cursor: pointer;
+  border-radius: 4px;
+}

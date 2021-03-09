@@ -1,16 +1,23 @@
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
-import { AppComponent } from './app.component';
+import { OrganizationLandingPageComponent } from './organization-landing-page/organization-landing-page.component';
+import { createCustomElement } from '@angular/elements';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule
-  ],
+  declarations: [OrganizationLandingPageComponent],
+  imports: [BrowserModule, HttpClientModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [OrganizationLandingPageComponent],
+  // entryComponents: [OrganizationLandingPageComponent]
 })
-export class AppModule { }
+export class AppModule {
+  // https://medium.com/comsystoreply/angular-elements-569025b65c69
+  // constructor(private injector: Injector) {}
+  // ngDoBootstrap() {
+  //   const customElement = createCustomElement(
+  //     OrganizationLandingPageComponent, {injector: this.injector});
+  //   customElements.define('organization-landing-page', customElement);
+  // }
+}

@@ -1,0 +1,12 @@
+<button
+  class="organization-landing-page"
+  (click)="onBtnClick()"
+  [ngStyle]="{ background: isHighlighted ? highlightColor : backgroundColor }"
+  [style.color]="textColor"
+>
+  {{ label }}
+</button>
+
+<div *ngFor="let event_date of response?.items">
+  <div>{{ event_date.event?.name }}</div>
+</div>
