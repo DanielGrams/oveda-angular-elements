@@ -1,0 +1,18 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.scss';
+@import '~@angular/material/theming';
+
+$config: mat-typography-config();
+
+.event-date {
+  margin: 1rem 0;
+}
+
+.event-date .date {
+  @include mat-typography-level-to-styles($config, body-1);
+  color: #fa383e;
+}
+
+.event-date .name {
+  @include mat-typography-level-to-styles($config, subheading-1);
+  margin-top: 0.125rem;
+}

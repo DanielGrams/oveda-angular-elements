@@ -6,20 +6,35 @@ import { OrganizationLandingPageComponent } from './organization-landing-page/or
 import { createCustomElement } from '@angular/elements';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { getGermanPaginatorIntl } from './german-paginator-intl';
+import { EventDatesService } from 'src/api/event-dates.service';
 
 @NgModule({
   declarations: [OrganizationLandingPageComponent, AppComponent],
-  imports: [BrowserModule, HttpClientModule, FlexLayoutModule],
-  providers: [{ provide: LOCALE_ID, useValue: 'de' }],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FlexLayoutModule,
+    BrowserAnimationsModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+  ],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'de' },
+    { provide: MatPaginatorIntl, useValue: getGermanPaginatorIntl() },
+    EventDatesService,
+  ],
   bootstrap: [AppComponent],
-  // entryComponents: [OrganizationLandingPageComponent]
+  // entryComponents: [OrganizationLandingPageComponent],
 })
 export class AppModule {
   // https://medium.com/comsystoreply/angular-elements-569025b65c69
   // constructor(private injector: Injector) {}
   // ngDoBootstrap() {
-  //   const customElement = createCustomElement(
-  //     OrganizationLandingPageComponent, {injector: this.injector});
+  //   const customElement = createCustomElement(OrganizationLandingPageComponent, { injector: this.injector });
   //   customElements.define('organization-landing-page', customElement);
   // }
 }

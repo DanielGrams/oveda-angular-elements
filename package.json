@@ -11,7 +11,7 @@
     "test:cli": "ng test --browsers=ChromeHeadless --watch=false --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "package": "cat ./dist/oveda-angular-elements/{runtime,polyfills,main}.js > organization-landing-page.js && ls -lah organization-landing-page.js",
+    "package": "cat ./dist/oveda-angular-elements/de/{runtime,polyfills,main}.js > organization-landing-page.js && ls -lah organization-landing-page.js",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
   "husky": {
@@ -29,6 +29,7 @@
     "@angular/elements": "^11.2.4",
     "@angular/flex-layout": "^11.0.0-beta.33",
     "@angular/forms": "~11.2.4",
+    "@angular/material": "^11.2.3",
     "@angular/platform-browser": "~11.2.4",
     "@angular/platform-browser-dynamic": "~11.2.4",
     "@angular/router": "~11.2.4",
