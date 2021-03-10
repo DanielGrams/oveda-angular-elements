@@ -1,8 +1,6 @@
 {
-  "[typescript]": {
-    "editor.autoIndent": "full",
-    "editor.formatOnPaste": true,
-    "editor.formatOnType": false,
-    "editor.formatOnSave": true,
-  },
+  "editor.autoIndent": "full",
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": false,
+  "editor.formatOnSave": true,
 }

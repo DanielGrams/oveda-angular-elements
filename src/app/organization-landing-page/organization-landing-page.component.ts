@@ -1,4 +1,4 @@
-import { Input, Output, EventEmitter } from '@angular/core';
+import { Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EventDateSearchResponse } from '../../model/eventDateSearchResponse';
@@ -9,30 +9,29 @@ import { EventDateSearchResponse } from '../../model/eventDateSearchResponse';
   styleUrls: ['./organization-landing-page.component.css'],
   encapsulation: ViewEncapsulation.ShadowDom,
 })
-export class OrganizationLandingPageComponent {
-  @Input() label = 'Mein Button';
-  @Input() textColor = 'gray';
-  @Input() backgroundColor = 'white';
-  @Input() highlightColor = 'orange';
-  @Output() action: EventEmitter<boolean> = new EventEmitter<boolean>(false);
-
-  isHighlighted = false;
-  response: EventDateSearchResponse | undefined;
+export class OrganizationLandingPageComponent implements OnInit, OnChanges {
+  @Input() organizationId: any;
+  response?: EventDateSearchResponse;
 
   constructor(private httpClient: HttpClient) {}
 
-  onBtnClick(): void {
-    this.isHighlighted = !this.isHighlighted;
-    this.action.emit(this.isHighlighted);
+  ngOnInit(): void {
+    this.loadData();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.loadData();
   }
 
   loadData() {
-    this.httpClient
-      .get<EventDateSearchResponse>('https://oveda.de/api/v1/organizations/2/event-dates/search')
-      .subscribe((data) => {
-        this.response = data;
-        console.log(this.response);
-      });
+    if (this.organizationId == null) {
+      return;
+    }
+
+    const url = `https://oveda.de/api/v1/organizations/${this.organizationId}/event-dates/search`;
+    this.httpClient.get<EventDateSearchResponse>(url).subscribe((data) => {
+      this.response = data;
+      console.log(this.response);
+    });
   }
 }
