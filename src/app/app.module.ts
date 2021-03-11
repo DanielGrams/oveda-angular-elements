@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { getGermanPaginatorIntl } from './german-paginator-intl';
-import { EventDatesService } from 'src/api/event-dates.service';
+import { ApiModule, BASE_PATH } from '@oveda/oveda-api';
 
 @NgModule({
   declarations: [OrganizationLandingPageComponent, AppComponent],
@@ -21,11 +21,12 @@ import { EventDatesService } from 'src/api/event-dates.service';
     BrowserAnimationsModule,
     MatPaginatorModule,
     MatProgressBarModule,
+    ApiModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'de' },
     { provide: MatPaginatorIntl, useValue: getGermanPaginatorIntl() },
-    EventDatesService,
+    { provide: BASE_PATH, useValue: 'https://oveda.de' },
   ],
   bootstrap: [AppComponent],
   // entryComponents: [OrganizationLandingPageComponent],

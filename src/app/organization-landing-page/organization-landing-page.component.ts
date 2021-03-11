@@ -1,8 +1,11 @@
-import { Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Input, OnInit } from '@angular/core';
 import { Component, ViewEncapsulation } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { EventDateSearchResponse } from '../../model/eventDateSearchResponse';
 import { PageEvent } from '@angular/material/paginator';
+import { EventDateSearchResponse } from '@oveda/oveda-api/model/eventDateSearchResponse';
+import { OrganizationsService } from '@oveda/oveda-api/api/organizations.service';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { switchMap, publishReplay, refCount } from 'rxjs/operators';
+import { StatusContent } from '../utils';
 
 @Component({
   selector: 'app-organization-landing-page',
@@ -10,40 +13,27 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ['./organization-landing-page.component.scss'],
   encapsulation: ViewEncapsulation.ShadowDom,
 })
-export class OrganizationLandingPageComponent implements OnInit, OnChanges {
+export class OrganizationLandingPageComponent implements OnInit {
   @Input() organizationid: any;
-  response?: EventDateSearchResponse;
   page = 1;
-  per_page = 10;
+  perPage = 10;
 
-  constructor(private httpClient: HttpClient) {}
+  readonly dates: StatusContent<EventDateSearchResponse>;
+  loadDates: () => Observable<EventDateSearchResponse | undefined>;
+
+  constructor(private organizationsService: OrganizationsService) {
+    this.loadDates = () =>
+      this.organizationsService.apiV1OrganizationsIdEventDatesSearchGet(this.organizationid, this.page, this.perPage);
+    this.dates = new StatusContent<EventDateSearchResponse>(this.loadDates);
+  }
 
   ngOnInit(): void {
-    console.log('init');
-    console.log(this.organizationid);
-    this.loadData();
+    this.dates.trigger$.next(undefined);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    this.loadData();
-  }
-
-  loadData() {
-    if (this.organizationid == null) {
-      return;
-    }
-
-    const url = `https://oveda.de/api/v1/organizations/${this.organizationid}/event-dates/search?page=${this.page}&per_page=${this.per_page}`;
-    this.httpClient.get<EventDateSearchResponse>(url).subscribe((data) => {
-      this.response = data;
-      console.log(data);
-    });
-  }
-
-  handlePageEvent(event: PageEvent) {
-    this.per_page = event.pageSize;
+  handleDatesPageEvent(event: PageEvent) {
+    this.perPage = event.pageSize;
     this.page = event.pageIndex + 1;
-    this.loadData();
+    this.dates.trigger$.next(undefined);
   }
 }
