@@ -2,10 +2,10 @@ import { Input, OnInit } from '@angular/core';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { EventDateSearchResponse } from '@oveda/oveda-api/model/eventDateSearchResponse';
+import { Organization } from '@oveda/oveda-api/model/organization';
 import { OrganizationsService } from '@oveda/oveda-api/api/organizations.service';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { switchMap, publishReplay, refCount } from 'rxjs/operators';
-import { StatusContent } from '../utils';
+import { Observable } from 'rxjs';
+import { StatusContent } from '../statuscontent';
 
 @Component({
   selector: 'app-organization-landing-page',
@@ -18,16 +18,23 @@ export class OrganizationLandingPageComponent implements OnInit {
   page = 1;
   perPage = 10;
 
+  readonly organization: StatusContent<Organization>;
+  loadOrganization: () => Observable<Organization | undefined>;
+
   readonly dates: StatusContent<EventDateSearchResponse>;
   loadDates: () => Observable<EventDateSearchResponse | undefined>;
 
   constructor(private organizationsService: OrganizationsService) {
+    this.loadOrganization = () => this.organizationsService.apiV1OrganizationsIdGet(this.organizationid);
+    this.organization = new StatusContent<Organization>(this.loadOrganization);
+
     this.loadDates = () =>
       this.organizationsService.apiV1OrganizationsIdEventDatesSearchGet(this.organizationid, this.page, this.perPage);
     this.dates = new StatusContent<EventDateSearchResponse>(this.loadDates);
   }
 
   ngOnInit(): void {
+    this.organization.trigger$.next(undefined);
     this.dates.trigger$.next(undefined);
   }
 

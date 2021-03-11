@@ -1,4 +1,3 @@
-/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { BehaviorSubject, merge, Observable, of } from 'rxjs';
 import { mapTo, catchError, switchMap, publishReplay, refCount } from 'rxjs/operators';
 

@@ -9,11 +9,14 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
 import { getGermanPaginatorIntl } from './german-paginator-intl';
 import { ApiModule, BASE_PATH } from '@oveda/oveda-api';
+import { AddressPipe } from './pipes';
 
 @NgModule({
-  declarations: [OrganizationLandingPageComponent, AppComponent],
+  declarations: [OrganizationLandingPageComponent, AppComponent, AddressPipe],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -21,6 +24,8 @@ import { ApiModule, BASE_PATH } from '@oveda/oveda-api';
     BrowserAnimationsModule,
     MatPaginatorModule,
     MatProgressBarModule,
+    MatListModule,
+    MatTabsModule,
     ApiModule,
   ],
   providers: [

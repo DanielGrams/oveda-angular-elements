@@ -1,14 +1,45 @@
-<span i18n>Category</span>
+<mat-progress-bar *ngIf="organization.isLoading$ | async" mode="indeterminate"></mat-progress-bar>
+<div *ngIf="organization.error$ | async as error">{{ error.message }}</div>
+<div *ngIf="organization.content$ | async as org" class="organization">
+  <div class="header" fxLayout="row" fxLayoutGap="0.5rem">
+    <img *ngIf="org.logo" src="https://oveda.de{{ org.logo.image_url }}" class="logo" alt="Logo" />
+    <div>
+      <div class="name">{{ org.name }}</div>
+      <div *ngIf="org.short_name" class="short-name">@{{ org.short_name }}</div>
+    </div>
+  </div>
+  <div *ngIf="org.url" class="url">
+    <a href="{{ org.url }}" target="_blank" rel="noopener noreferrer">{{ org.url }}</a>
+  </div>
+  <div *ngIf="org.email" class="email">
+    <a href="mailto:{{ org.email }}">{{ org.email }}</a>
+  </div>
+  <div *ngIf="org.phone" class="phone">
+    <a href="tel:{{ org.phone }}">{{ org.phone }}</a>
+  </div>
+  <div *ngIf="org.fax" class="fax">
+    <a href="tel:{{ org.fax }}">{{ org.fax }}</a>
+  </div>
+  <div *ngIf="org.location" class="location">
+    <a href="https://www.google.com/maps?q={{ org.location | address }}" target="_blank" rel="noopener noreferrer">{{
+      org.location | address
+    }}</a>
+  </div>
+</div>
+
+<mat-tab-group>
+  <mat-tab i18n-label label="Event dates"></mat-tab>
+</mat-tab-group>
 
 <mat-progress-bar *ngIf="dates.isLoading$ | async" mode="indeterminate"></mat-progress-bar>
-
 <div *ngIf="dates.error$ | async as error">{{ error.message }}</div>
-
 <ng-container *ngIf="dates.content$ | async as response">
-  <div *ngFor="let event_date of response.items">
-    <div class="event-date">
-      <div class="date">{{ event_date.start | date: 'fullDate' }} {{ event_date.start | date: 'shortTime' }}</div>
-      <div class="name">{{ event_date.event?.name }}</div>
+  <div class="event-dates">
+    <div *ngFor="let event_date of response.items" class="event-date">
+      <a href="https://oveda.de/eventdate/{{ event_date.id }}">
+        <div class="date">{{ event_date.start | date: 'fullDate' }} {{ event_date.start | date: 'shortTime' }}</div>
+        <div class="name">{{ event_date.event?.name }}</div>
+      </a>
     </div>
   </div>
 

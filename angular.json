@@ -29,7 +29,6 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "localize": ["de"],
-            "i18nMissingTranslation": "error",
             "preserveSymlinks": true,
             "aot": true,
             "assets": ["src/favicon.ico", "src/assets"],

@@ -3,16 +3,53 @@
 
 $config: mat-typography-config();
 
+.logo {
+  width: auto;
+  max-height: 60px;
+}
+
+div.header {
+  margin-bottom: 0.5rem;
+}
+
+div.organization {
+  margin-bottom: 0.5rem;
+}
+
+div.header img.logo {
+  @extend .logo;
+}
+
+div.header div.name {
+  @include mat-typography-level-to-styles($config, title);
+  margin-bottom: 0;
+}
+
+div.header div.short-name {
+  @include mat-typography-level-to-styles($config, caption);
+  color: #6c757d;
+}
+
+div.mat-list-item-content {
+  padding: 0important;
+}
+
 .event-date {
-  margin: 1rem 0;
+  margin: 0.5rem 0;
+}
+
+.event-date a {
+  text-decoration: none;
 }
 
 .event-date .date {
   @include mat-typography-level-to-styles($config, body-1);
   color: #fa383e;
+  font-weight: 200;
 }
 
 .event-date .name {
-  @include mat-typography-level-to-styles($config, subheading-1);
+  @include mat-typography-level-to-styles($config, body-1);
   margin-top: 0.125rem;
+  color: #000;
 }
