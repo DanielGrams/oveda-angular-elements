@@ -1,55 +1,118 @@
-<mat-progress-bar *ngIf="organization.isLoading$ | async" mode="indeterminate"></mat-progress-bar>
-<div *ngIf="organization.error$ | async as error">{{ error.message }}</div>
-<div *ngIf="organization.content$ | async as org" class="organization">
-  <div class="header" fxLayout="row" fxLayoutGap="0.5rem">
-    <img *ngIf="org.logo" src="https://oveda.de{{ org.logo.image_url }}" class="logo" alt="Logo" />
-    <div>
-      <div class="name">{{ org.name }}</div>
-      <div *ngIf="org.short_name" class="short-name">@{{ org.short_name }}</div>
-    </div>
-  </div>
-  <div *ngIf="org.url" class="url">
-    <a href="{{ org.url }}" target="_blank" rel="noopener noreferrer">{{ org.url }}</a>
-  </div>
-  <div *ngIf="org.email" class="email">
-    <a href="mailto:{{ org.email }}">{{ org.email }}</a>
-  </div>
-  <div *ngIf="org.phone" class="phone">
-    <a href="tel:{{ org.phone }}">{{ org.phone }}</a>
-  </div>
-  <div *ngIf="org.fax" class="fax">
-    <a href="tel:{{ org.fax }}">{{ org.fax }}</a>
-  </div>
-  <div *ngIf="org.location" class="location">
-    <a href="https://www.google.com/maps?q={{ org.location | address }}" target="_blank" rel="noopener noreferrer">{{
-      org.location | address
-    }}</a>
-  </div>
+<div *ngIf="organization.isLoading$ | async" class="spinner-border m-3" role="status">
+  <span class="sr-only">Loading&hellip;</span>
+</div>
+<div *ngIf="organization.error$ | async as error" class="alert alert-danger m-3" role="alert">
+  {{ error.message }}
 </div>
 
-<mat-tab-group>
-  <mat-tab i18n-label label="Event dates"></mat-tab>
-</mat-tab-group>
-
-<mat-progress-bar *ngIf="dates.isLoading$ | async" mode="indeterminate"></mat-progress-bar>
-<div *ngIf="dates.error$ | async as error">{{ error.message }}</div>
-<ng-container *ngIf="dates.content$ | async as response">
-  <div class="event-dates">
-    <div *ngFor="let event_date of response.items" class="event-date">
-      <a href="https://oveda.de/eventdate/{{ event_date.id }}">
-        <div class="date">{{ event_date.start | date: 'fullDate' }} {{ event_date.start | date: 'shortTime' }}</div>
-        <div class="name">{{ event_date.event?.name }}</div>
-      </a>
+<div *ngIf="organization.content$ | async as org" class="organization">
+  <div class="w-normal mx-auto">
+    <div class="p-3 clearfix">
+      <div *ngIf="org.logo" class="mr-4 float-sm-left">
+        <figure class="figure mx-auto">
+          <img
+            src="https://oveda.de/image/{{ org.logo.id }}?s=120"
+            class="figure-img img-fluid"
+            style="max-width: 120px"
+            alt="Logo"
+          />
+        </figure>
+      </div>
+      <h1 class="font-weight-bold my-1">{{ org.name }}</h1>
+      <div *ngIf="org.short_name" class="text-muted">@{{ org.short_name }}</div>
+      <div>
+        <div *ngIf="org.url" class="url">
+          <a href="{{ org.url }}" target="_blank" rel="noopener noreferrer">{{ org.url }}</a>
+        </div>
+        <div *ngIf="org.email" class="email">
+          <a href="mailto:{{ org.email }}">{{ org.email }}</a>
+        </div>
+        <div *ngIf="org.phone" class="phone">
+          <a href="tel:{{ org.phone }}">{{ org.phone }}</a>
+        </div>
+        <div *ngIf="org.fax" class="fax">
+          <a href="tel:{{ org.fax }}">{{ org.fax }}</a>
+        </div>
+        <div *ngIf="org.location" class="location">
+          <a
+            href="https://www.google.com/maps?q={{ org.location | address }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            >{{ org.location | address }}</a
+          >
+        </div>
+      </div>
     </div>
   </div>
 
-  <mat-paginator
-    (page)="handleDatesPageEvent($event)"
-    [length]="response.total"
-    [pageIndex]="page - 1"
-    [pageSize]="perPage"
-    showFirstLastButtons="true"
-    hidePageSize="true"
-  >
-  </mat-paginator>
-</ng-container>
+  <div class="d-flex bg-light p-3">
+    <div class="mx-auto" style="width: 40rem">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="mt-0" i18n>Event dates</h2>
+
+          <div *ngIf="dates.isLoading$ | async" class="spinner-border m-3" role="status">
+            <span class="sr-only">Loading&hellip;</span>
+          </div>
+          <div *ngIf="dates.error$ | async as error" class="alert alert-danger m-3" role="alert">
+            {{ error.message }}
+          </div>
+          <ng-container *ngIf="dates.content$ | async as response">
+            <div class="list-group list-group-flush">
+              <a
+                *ngFor="let event_date of response.items"
+                href="https://oveda.de/eventdate/{{ event_date.id }}"
+                class="list-group-item list-group-item-action flex-column align-items-start pl-0 pr-0"
+              >
+                <div class="d-none d-sm-block mr-4 float-left rounded">
+                  <figure *ngIf="event_date.event?.photo as photo; else noPhoto" class="figure mx-auto">
+                    <img
+                      src="https://oveda.de/image/{{ photo.id }}?s=120"
+                      class="figure-img img-fluid"
+                      style="max-width: 120px"
+                      alt="Photo"
+                    />
+                  </figure>
+
+                  <ng-template #noPhoto>
+                    <div
+                      class="bg-light d-flex align-items-center justify-content-center"
+                      style="width: 120px; height: 120px"
+                    >
+                      <i class="fa-calendar far h1 text-muted"></i>
+                    </div>
+                  </ng-template>
+                </div>
+
+                <div class="font-weight-bold text-uppercase mb-1">
+                  {{ event_date.start | date: 'fullDate' }} {{ event_date.start | date: 'shortTime' }}
+                </div>
+                <div class="text-body font-weight-bold mb-1" style="font-size: 1.2rem">
+                  {{ event_date.event?.name }}
+                  <span class="small" style="vertical-align: middle">
+                    <app-warning-pills [event]="event_date.event"></app-warning-pills>
+                  </span>
+                </div>
+                <div>
+                  {{ event_date.event?.place?.name }}
+                </div>
+              </a>
+            </div>
+
+            <ngb-pagination
+              [(page)]="page"
+              [pageSize]="perPage"
+              [collectionSize]="response.total"
+              (pageChange)="onDatesPageChange(page)"
+              [maxSize]="3"
+              [rotate]="true"
+              [boundaryLinks]="true"
+              [ellipses]="false"
+              class="d-flex justify-content-center mt-2"
+            ></ngb-pagination>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

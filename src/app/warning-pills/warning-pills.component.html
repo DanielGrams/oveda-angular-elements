@@ -1,0 +1,16 @@
+<ng-container *ngIf="event?.status as status">
+  <ng-container *ngIf="status != statusEnum.Scheduled">
+    <span class="badge badge-pill badge-warning">
+      <ng-container [ngSwitch]="status">
+        <ng-container *ngSwitchCase="statusEnum.Cancelled" i18n>EventStatus.Cancelled</ng-container>
+        <ng-container *ngSwitchCase="statusEnum.MovedOnline" i18n>EventStatus.MovedOnline</ng-container>
+        <ng-container *ngSwitchCase="statusEnum.Postponed" i18n>EventStatus.Postponed</ng-container>
+        <ng-container *ngSwitchCase="statusEnum.Rescheduled" i18n>EventStatus.Rescheduled</ng-container>
+      </ng-container>
+    </span>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="event?.booked_up">
+  <span class="badge badge-pill badge-warning" i18n>Booked up</span>
+</ng-container>

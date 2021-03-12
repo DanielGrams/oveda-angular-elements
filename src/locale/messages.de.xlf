@@ -6,6 +6,26 @@
         <source>Event dates</source>
         <target>Veranstaltungen</target>
       </trans-unit>
+      <trans-unit id="5404646674564536168" datatype="html">
+        <source>EventStatus.Cancelled</source>
+        <target>Abgesagt</target>
+      </trans-unit>
+      <trans-unit id="4389078437815346793" datatype="html">
+        <source>EventStatus.MovedOnline</source>
+        <target>Online verschoben</target>
+      </trans-unit>
+      <trans-unit id="3773738977145653450" datatype="html">
+        <source>EventStatus.Postponed</source>
+        <target>Verschoben</target>
+      </trans-unit>
+      <trans-unit id="717662425400076132" datatype="html">
+        <source>EventStatus.Rescheduled</source>
+        <target>Neu angesetzt</target>
+      </trans-unit>
+      <trans-unit id="6479714768841522794" datatype="html">
+        <source>Booked up</source>
+        <target>Ausgebucht</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

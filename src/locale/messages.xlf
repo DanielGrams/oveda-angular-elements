@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
@@ -6,7 +6,42 @@
         <source>Event dates</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/organization-landing-page/organization-landing-page.component.html</context>
-          <context context-type="linenumber">1</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5404646674564536168" datatype="html">
+        <source>EventStatus.Cancelled</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/warning-pills/warning-pills.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4389078437815346793" datatype="html">
+        <source>EventStatus.MovedOnline</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/warning-pills/warning-pills.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3773738977145653450" datatype="html">
+        <source>EventStatus.Postponed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/warning-pills/warning-pills.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="717662425400076132" datatype="html">
+        <source>EventStatus.Rescheduled</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/warning-pills/warning-pills.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6479714768841522794" datatype="html">
+        <source>Booked up</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/warning-pills/warning-pills.component.html</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
     </body>

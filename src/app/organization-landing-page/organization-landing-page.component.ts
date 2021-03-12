@@ -1,6 +1,5 @@
 import { Input, OnInit } from '@angular/core';
 import { Component, ViewEncapsulation } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import { EventDateSearchResponse } from '@oveda/oveda-api/model/eventDateSearchResponse';
 import { Organization } from '@oveda/oveda-api/model/organization';
 import { OrganizationsService } from '@oveda/oveda-api/api/organizations.service';
@@ -11,7 +10,6 @@ import { StatusContent } from '../statuscontent';
   selector: 'app-organization-landing-page',
   templateUrl: './organization-landing-page.component.html',
   styleUrls: ['./organization-landing-page.component.scss'],
-  encapsulation: ViewEncapsulation.ShadowDom,
 })
 export class OrganizationLandingPageComponent implements OnInit {
   @Input() organizationid: any;
@@ -38,9 +36,8 @@ export class OrganizationLandingPageComponent implements OnInit {
     this.dates.trigger$.next(undefined);
   }
 
-  handleDatesPageEvent(event: PageEvent) {
-    this.perPage = event.pageSize;
-    this.page = event.pageIndex + 1;
+  onDatesPageChange(page: number) {
+    this.page = page;
     this.dates.trigger$.next(undefined);
   }
 }
