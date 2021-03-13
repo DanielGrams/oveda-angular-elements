@@ -1,8 +1,6 @@
 import { Input, OnInit } from '@angular/core';
 import { Component, ViewEncapsulation } from '@angular/core';
-import { EventDateSearchResponse } from '@oveda/oveda-api/model/eventDateSearchResponse';
-import { Organization } from '@oveda/oveda-api/model/organization';
-import { OrganizationsService } from '@oveda/oveda-api/api/organizations.service';
+import { OrganizationsService, Organization, EventDateSearchResponse } from '@oveda/oveda-api';
 import { Observable } from 'rxjs';
 import { StatusContent } from '../statuscontent';
 

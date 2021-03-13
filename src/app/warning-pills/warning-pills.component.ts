@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Event } from '@oveda/oveda-api/model/event';
+import { Event } from '@oveda/oveda-api';
 
 @Component({
   selector: 'app-warning-pills',
