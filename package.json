@@ -11,7 +11,8 @@
     "test:cli": "ng test --browsers=ChromeHeadless --watch=false --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "package": "cat ./dist/oveda-angular-elements/de/{runtime,polyfills,main}.js > organization-landing-page.js && ls -lah organization-landing-page.js",
+    "package:elements": "cat ./dist/oveda-angular-elements/de/{runtime,polyfills,main}.js > organization-landing-page.js && ls -lah organization-landing-page.js",
+    "export:elements": "npm run build:elements && npm run package:elements",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
   "husky": {

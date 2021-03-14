@@ -18,19 +18,13 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     { provide: LOCALE_ID, useValue: 'de' },
     { provide: BASE_PATH, useValue: 'https://oveda.de' },
   ],
-  // ELEMENTS BEGIN
-  bootstrap: [AppComponent],
-  // entryComponents: [OrganizationLandingPageComponent],
-  // ELEMENTS END
+  entryComponents: [OrganizationLandingPageComponent],
 })
+export class AppModule implements DoBootstrap {
+  constructor(private injector: Injector) {
+    const customElement = createCustomElement(OrganizationLandingPageComponent, { injector: this.injector });
+    customElements.define('organization-landing-page', customElement);
+  }
 
-// ELEMENTS BEGIN
-export class AppModule {}
-// export class AppModule implements DoBootstrap {
-//   constructor(private injector: Injector) {}
-//   ngDoBootstrap() {
-//     const customElement = createCustomElement(OrganizationLandingPageComponent, { injector: this.injector });
-//     customElements.define('organization-landing-page', customElement);
-//   }
-// }
-// ELEMENTS END
+  ngDoBootstrap() {}
+}
