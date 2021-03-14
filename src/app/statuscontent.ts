@@ -15,7 +15,12 @@ export class StatusContent<T> {
   constructor(private loadData: () => Observable<T | undefined>) {}
 
   getContent(trigger$: Observable<unknown>, task$: Observable<T | undefined>): Observable<T | undefined> {
-    return merge(trigger$.pipe(mapTo(undefined)), task$);
+    return merge(trigger$.pipe(mapTo(undefined)), task$).pipe(
+      catchError((e) => {
+        console.log(e);
+        return of(undefined);
+      })
+    );
   }
 
   isLoading(trigger$: Observable<unknown>, task: Observable<unknown>): Observable<boolean> {

@@ -1,5 +1,5 @@
 import { Input, OnInit } from '@angular/core';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { OrganizationsService, Organization, EventDateSearchResponse } from '@oveda/oveda-api';
 import { Observable } from 'rxjs';
 import { StatusContent } from '../statuscontent';
