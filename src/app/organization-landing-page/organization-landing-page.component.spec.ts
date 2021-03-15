@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpErrorResponse, HttpHandler } from '@angular/common/http';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { OrganizationsService, EventDateSearchItem, EventDateSearchResponse, Organization } from '@oveda/oveda-api';
 import { asyncData } from '../testutils';
@@ -13,20 +13,20 @@ describe('OrganizationLandingPageComponent', () => {
   let organizationsService: any;
 
   beforeEach(async () => {
-    organizationsService = jasmine.createSpyObj('OrganizationsService', [
-      'apiV1OrganizationsIdGet',
-      'apiV1OrganizationsIdEventDatesSearchGet',
-    ]);
     await TestBed.configureTestingModule({
       declarations: [OrganizationLandingPageComponent],
-      imports: [],
-      providers: [{ provide: OrganizationsService, useValue: organizationsService }],
+      imports: [HttpClientModule],
     }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(OrganizationLandingPageComponent);
     component = fixture.componentInstance;
+    organizationsService = jasmine.createSpyObj('OrganizationsService', [
+      'apiV1OrganizationsIdGet',
+      'apiV1OrganizationsIdEventDatesSearchGet',
+    ]);
+    component.organizationsService = organizationsService;
   });
 
   it(
@@ -80,4 +80,10 @@ describe('OrganizationLandingPageComponent', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('.alert').innerText).toContain('404');
   }));
+
+  it('should create service', () => {
+    const newComponent = new OrganizationLandingPageComponent(TestBed.get(HttpClient));
+    newComponent.ngOnInit();
+    expect(newComponent.organizationsService).toBeTruthy();
+  });
 });

@@ -1,5 +1,6 @@
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Input, OnInit } from '@angular/core';
+import { Input, OnInit, Optional } from '@angular/core';
 import { Component } from '@angular/core';
 import { OrganizationsService, Organization, EventDateSearchResponse, Configuration } from '@oveda/oveda-api';
 import { Observable } from 'rxjs';
@@ -22,19 +23,28 @@ export class OrganizationLandingPageComponent implements OnInit {
   readonly dates: StatusContent<EventDateSearchResponse>;
   loadDates: () => Observable<EventDateSearchResponse | undefined>;
 
-  private organizationsService!: OrganizationsService;
+  public organizationsService!: OrganizationsService;
 
   constructor(private httpClient: HttpClient) {
     this.loadOrganization = () => this.organizationsService.apiV1OrganizationsIdGet(this.organizationid);
     this.organization = new StatusContent<Organization>(this.loadOrganization);
 
     this.loadDates = () =>
-      this.organizationsService.apiV1OrganizationsIdEventDatesSearchGet(this.organizationid, this.page, this.perPage);
+      this.organizationsService.apiV1OrganizationsIdEventDatesSearchGet(
+        this.organizationid,
+        this.page,
+        this.perPage,
+        undefined,
+        formatDate(new Date(), 'yyyy-MM-dd', 'en', 'Europe/Berlin')
+      );
     this.dates = new StatusContent<EventDateSearchResponse>(this.loadDates);
   }
 
   ngOnInit(): void {
-    this.organizationsService = new OrganizationsService(this.httpClient, this.basepath, new Configuration());
+    if (!this.organizationsService) {
+      this.organizationsService = new OrganizationsService(this.httpClient, this.basepath, new Configuration());
+    }
+
     this.organization.trigger$.next(undefined);
     this.dates.trigger$.next(undefined);
   }
