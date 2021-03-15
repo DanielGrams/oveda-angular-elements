@@ -1,6 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Input, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { OrganizationsService, Organization, EventDateSearchResponse } from '@oveda/oveda-api';
+import { OrganizationsService, Organization, EventDateSearchResponse, Configuration } from '@oveda/oveda-api';
 import { Observable } from 'rxjs';
 import { StatusContent } from '../statuscontent';
 
@@ -11,6 +12,7 @@ import { StatusContent } from '../statuscontent';
 })
 export class OrganizationLandingPageComponent implements OnInit {
   @Input() organizationid: any;
+  @Input() basepath = '';
   page = 1;
   perPage = 10;
 
@@ -20,7 +22,9 @@ export class OrganizationLandingPageComponent implements OnInit {
   readonly dates: StatusContent<EventDateSearchResponse>;
   loadDates: () => Observable<EventDateSearchResponse | undefined>;
 
-  constructor(private organizationsService: OrganizationsService) {
+  private organizationsService!: OrganizationsService;
+
+  constructor(private httpClient: HttpClient) {
     this.loadOrganization = () => this.organizationsService.apiV1OrganizationsIdGet(this.organizationid);
     this.organization = new StatusContent<Organization>(this.loadOrganization);
 
@@ -30,6 +34,7 @@ export class OrganizationLandingPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.organizationsService = new OrganizationsService(this.httpClient, this.basepath, new Configuration());
     this.organization.trigger$.next(undefined);
     this.dates.trigger$.next(undefined);
   }

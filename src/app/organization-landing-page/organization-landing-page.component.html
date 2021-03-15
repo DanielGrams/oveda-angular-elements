@@ -11,7 +11,7 @@
       <div *ngIf="org.logo" class="mr-4 float-sm-left">
         <figure class="figure mx-auto">
           <img
-            src="https://oveda.de/image/{{ org.logo.id }}?s=120"
+            src="{{ basepath }}/image/{{ org.logo.id }}?s=120"
             class="figure-img img-fluid"
             style="max-width: 120px"
             alt="Logo"
@@ -61,13 +61,13 @@
             <div class="list-group list-group-flush">
               <a
                 *ngFor="let event_date of response.items"
-                href="https://oveda.de/eventdate/{{ event_date.id }}"
+                href="{{ basepath }}/eventdate/{{ event_date.id }}"
                 class="list-group-item list-group-item-action flex-column align-items-start pl-0 pr-0"
               >
                 <div class="d-none d-sm-block mr-4 float-left rounded">
                   <figure *ngIf="event_date.event?.photo as photo; else noPhoto" class="figure mx-auto">
                     <img
-                      src="https://oveda.de/image/{{ photo.id }}?s=120"
+                      src="{{ basepath }}/image/{{ photo.id }}?s=120"
                       class="figure-img img-fluid"
                       style="max-width: 120px"
                       alt="Photo"

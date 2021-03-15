@@ -6,7 +6,7 @@ import { OrganizationLandingPageComponent } from './organization-landing-page/or
 import { createCustomElement } from '@angular/elements';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ApiModule, BASE_PATH } from '@oveda/oveda-api';
+import { ApiModule } from '@oveda/oveda-api';
 import { AddressPipe } from './pipes';
 import { WarningPillsComponent } from './warning-pills/warning-pills.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
@@ -14,10 +14,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [OrganizationLandingPageComponent, AppComponent, AddressPipe, WarningPillsComponent],
   imports: [BrowserModule, HttpClientModule, BrowserAnimationsModule, ApiModule, NgbPaginationModule],
-  providers: [
-    { provide: LOCALE_ID, useValue: 'de' },
-    { provide: BASE_PATH, useValue: 'https://oveda.de' },
-  ],
+  providers: [{ provide: LOCALE_ID, useValue: 'de' }],
   entryComponents: [OrganizationLandingPageComponent],
 })
 export class AppModule implements DoBootstrap {
