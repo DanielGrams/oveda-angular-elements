@@ -10,7 +10,18 @@
     </span>
   </ng-container>
 </ng-container>
-
+&ngsp;
 <ng-container *ngIf="event?.booked_up">
   <span class="badge badge-pill badge-warning" i18n>Booked up</span>
+</ng-container>
+&ngsp;
+<ng-container *ngIf="event?.attendance_mode as attendance_mode">
+  <ng-container *ngIf="attendance_mode != attendanceModeEnum.Offline">
+    <span class="badge badge-pill badge-info">
+      <ng-container [ngSwitch]="attendance_mode">
+        <ng-container *ngSwitchCase="attendanceModeEnum.Online" i18n>AttendanceModeEnum.Online</ng-container>
+        <ng-container *ngSwitchCase="attendanceModeEnum.Mixed" i18n>AttendanceModeEnum.Mixed</ng-container>
+      </ng-container>
+    </span>
+  </ng-container>
 </ng-container>

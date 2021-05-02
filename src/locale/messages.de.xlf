@@ -26,6 +26,14 @@
         <source>Booked up</source>
         <target>Ausgebucht</target>
       </trans-unit>
+      <trans-unit id="2284473705524787426" datatype="html">
+        <source>AttendanceModeEnum.Online</source>
+        <target>Online</target>
+      </trans-unit>
+      <trans-unit id="181775911790679275" datatype="html">
+        <source>AttendanceModeEnum.Mixed</source>
+        <target>Online und offline</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

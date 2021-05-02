@@ -17,7 +17,7 @@ export class StatusContent<T> {
   getContent(trigger$: Observable<unknown>, task$: Observable<T | undefined>): Observable<T | undefined> {
     return merge(trigger$.pipe(mapTo(undefined)), task$).pipe(
       catchError((e) => {
-        console.log(e);
+        console.error(e);
         return of(undefined);
       })
     );

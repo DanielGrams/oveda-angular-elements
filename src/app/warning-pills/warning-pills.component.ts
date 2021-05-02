@@ -9,6 +9,7 @@ import { Event } from '@oveda/oveda-api';
 export class WarningPillsComponent implements OnInit {
   @Input() event?: Event;
   public statusEnum = Event.StatusEnum;
+  public attendanceModeEnum = Event.AttendanceModeEnum;
 
   constructor() {}
 
