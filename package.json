@@ -11,7 +11,7 @@
     "test:cli": "ng test --browsers=ChromeHeadless --watch=false --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "package:elements": "cat ./dist/oveda-angular-elements/de/{runtime,polyfills,main}.js > organization-landing-page.js && ls -lah organization-landing-page.js",
+    "package:elements": "cat ./dist/oveda-angular-elements/de/{runtime,polyfills,main}.js > angular-elements.js && ls -lah angular-elements.js",
     "export:elements": "npm run build:elements && npm run package:elements",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
@@ -36,6 +36,7 @@
     "@oveda/oveda-api": "^0.1.0-SNAPSHOT.202103111629",
     "bootstrap": "^4.5.0",
     "document-register-element": "^1.7.2",
+    "moment": "^2.29.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

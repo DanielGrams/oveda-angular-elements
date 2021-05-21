@@ -247,6 +247,69 @@
           <context context-type="linenumber">76,85</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="1616102757855967475" datatype="html">
+        <source>All</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/event-date-search/event-date-search.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6048892649018070225" datatype="html">
+        <source>Today</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/event-date-search/event-date-search.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9129734193759025482" datatype="html">
+        <source>Tomorrow</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/event-date-search/event-date-search.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5073473933031004097" datatype="html">
+        <source>This week</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/event-date-search/event-date-search.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2214275277412526231" datatype="html">
+        <source>This weekend</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/event-date-search/event-date-search.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="125962421212090538" datatype="html">
+        <source>Next week</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/event-date-search/event-date-search.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="842657237693374355" datatype="html">
+        <source>This month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/event-date-search/event-date-search.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3628374603023447227" datatype="html">
+        <source>Next month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/event-date-search/event-date-search.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4970667944941162686" datatype="html">
+        <source>o&apos;clock</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/event-date-search/event-date-search.component.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="8984548957734607665" datatype="html">
         <source>Event dates</source>
         <context-group purpose="location">

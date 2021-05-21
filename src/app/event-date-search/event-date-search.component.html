@@ -1,0 +1,115 @@
+<div class="w-normal mx-auto">
+  <div class="p-2" style="overflow: auto; white-space: nowrap">
+    <div
+      class="btn-group btn-group-toggle btn-group-sm"
+      ngbRadioGroup
+      [ngModel]="dateFilter"
+      (ngModelChange)="dateFilterChanged($event)"
+    >
+      <label ngbButtonLabel class="btn-outline-secondary">
+        <input ngbButton type="radio" value="all" /> <ng-container i18n>All</ng-container></label
+      >
+      <label ngbButtonLabel class="btn-outline-secondary">
+        <input ngbButton type="radio" value="today" /> <ng-container i18n>Today</ng-container></label
+      >
+      <label ngbButtonLabel class="btn-outline-secondary">
+        <input ngbButton type="radio" value="tomorrow" /> <ng-container i18n>Tomorrow</ng-container></label
+      >
+      <label ngbButtonLabel class="btn-outline-secondary">
+        <input ngbButton type="radio" value="thisweek" /> <ng-container i18n>This week</ng-container></label
+      >
+      <label ngbButtonLabel class="btn-outline-secondary">
+        <input ngbButton type="radio" value="thisweekend" /> <ng-container i18n>This weekend</ng-container></label
+      >
+      <label ngbButtonLabel class="btn-outline-secondary">
+        <input ngbButton type="radio" value="nextweek" /> <ng-container i18n>Next week</ng-container></label
+      >
+      <label ngbButtonLabel class="btn-outline-secondary">
+        <input ngbButton type="radio" value="thismonth" /> <ng-container i18n>This month</ng-container></label
+      >
+      <label ngbButtonLabel class="btn-outline-secondary">
+        <input ngbButton type="radio" value="nextmonth" /> <ng-container i18n>Next month</ng-container></label
+      >
+    </div>
+  </div>
+
+  <div style="max-width: 40rem">
+    <div *ngIf="dates.isLoading$ | async" class="spinner-border m-3" role="status">
+      <span class="sr-only">Loading&hellip;</span>
+    </div>
+    <div *ngIf="dates.error$ | async as error" class="alert alert-danger m-3" role="alert">
+      {{ error.message }}
+    </div>
+    <ng-container *ngIf="dates.content$ | async as response">
+      <div class="list-group list-group-flush">
+        <a
+          *ngFor="let event_date of response.items"
+          href="{{ basepath }}/eventdate/{{ event_date.id }}"
+          class="list-group-item list-group-item-action px-2"
+        >
+          <div class="container">
+            <div class="row">
+              <div style="flex: 0 0 2rem">
+                <div class="text-center text-body" style="font-size: 1.4rem">
+                  {{ event_date.start | date: 'dd' }}
+                </div>
+                <div class="text-center text-uppercase text-muted" style="font-size: 0.8rem">
+                  {{ event_date.start | date: 'MMM' }}
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="text-body" style="font-size: 1.1rem">
+                  {{ event_date.event?.name }}
+                  <span class="small" style="vertical-align: middle">
+                    <app-warning-pills [event]="event_date.event"></app-warning-pills>
+                  </span>
+                </div>
+                <div class="text-muted" style="font-size: 0.85rem">
+                  <div>
+                    {{ event_date.start | date: 'EE' }} {{ event_date.start | date: 'shortTime' }}
+                    <ng-container i18n>o'clock</ng-container>
+                  </div>
+                  <div>{{ event_date.event?.place?.name }}</div>
+                  <div>{{ event_date.event?.place?.location?.city }}</div>
+                </div>
+              </div>
+
+              <div style="flex: 0 1 80px">
+                <figure *ngIf="event_date.event?.photo as photo; else noPhoto" class="figure mx-auto">
+                  <img
+                    src="{{ basepath }}/image/{{ photo.id }}?s=80"
+                    class="figure-img img-fluid rounded"
+                    style="object-fit: cover; width: 80px; height: 80px"
+                    alt="Photo"
+                  />
+                </figure>
+
+                <ng-template #noPhoto>
+                  <div
+                    class="bg-light d-flex align-items-center justify-content-center rounded"
+                    style="width: 80px; height: 80px"
+                  >
+                    <i class="fa-calendar far h1 text-muted"></i>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <ngb-pagination
+        [(page)]="page"
+        [pageSize]="perPage"
+        [collectionSize]="response.total"
+        (pageChange)="onDatesPageChange(page)"
+        [maxSize]="3"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        [ellipses]="false"
+        class="d-flex justify-content-center mt-2"
+      ></ngb-pagination>
+    </ng-container>
+  </div>
+</div>

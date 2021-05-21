@@ -1,6 +1,6 @@
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Input, OnInit, Optional } from '@angular/core';
+import { Input, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { OrganizationsService, Organization, EventDateSearchResponse, Configuration } from '@oveda/oveda-api';
 import { Observable } from 'rxjs';
