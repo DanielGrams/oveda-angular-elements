@@ -9,18 +9,37 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ApiModule } from '@oveda/oveda-api';
 import { AddressPipe } from './pipes';
 import { WarningPillsComponent } from './warning-pills/warning-pills.component';
-import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPaginationModule, NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
+import { EventDateSearchComponent } from './event-date-search/event-date-search.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [OrganizationLandingPageComponent, AppComponent, AddressPipe, WarningPillsComponent],
-  imports: [BrowserModule, HttpClientModule, BrowserAnimationsModule, ApiModule, NgbPaginationModule],
+  declarations: [
+    OrganizationLandingPageComponent,
+    AppComponent,
+    AddressPipe,
+    WarningPillsComponent,
+    EventDateSearchComponent,
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ApiModule,
+    FormsModule,
+    NgbPaginationModule,
+    NgbButtonsModule,
+  ],
   providers: [{ provide: LOCALE_ID, useValue: 'de' }],
-  entryComponents: [OrganizationLandingPageComponent],
+  entryComponents: [OrganizationLandingPageComponent, EventDateSearchComponent],
 })
 export class AppModule implements DoBootstrap {
   constructor(private injector: Injector) {
-    const customElement = createCustomElement(OrganizationLandingPageComponent, { injector: this.injector });
-    customElements.define('organization-landing-page', customElement);
+    const organizationLandingPage = createCustomElement(OrganizationLandingPageComponent, { injector: this.injector });
+    customElements.define('organization-landing-page', organizationLandingPage);
+
+    const eventDateSearch = createCustomElement(EventDateSearchComponent, { injector: this.injector });
+    customElements.define('event-date-search', eventDateSearch);
   }
 
   ngDoBootstrap() {}
