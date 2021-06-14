@@ -12,6 +12,7 @@ import { WarningPillsComponent } from './warning-pills/warning-pills.component';
 import { NgbPaginationModule, NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
 import { EventDateSearchComponent } from './event-date-search/event-date-search.component';
 import { FormsModule } from '@angular/forms';
+import { DateFilterComponent } from './shared/date-filter/date-filter.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     AddressPipe,
     WarningPillsComponent,
     EventDateSearchComponent,
+    DateFilterComponent,
   ],
   imports: [
     BrowserModule,
