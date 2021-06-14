@@ -1,37 +1,5 @@
 <div class="w-normal mx-auto">
-  <div class="p-2" style="overflow: auto; white-space: nowrap">
-    <div
-      class="btn-group btn-group-toggle btn-group-sm"
-      ngbRadioGroup
-      [ngModel]="dateFilter"
-      (ngModelChange)="dateFilterChanged($event)"
-    >
-      <label ngbButtonLabel class="btn-outline-secondary">
-        <input ngbButton type="radio" value="all" /> <ng-container i18n>All</ng-container></label
-      >
-      <label ngbButtonLabel class="btn-outline-secondary">
-        <input ngbButton type="radio" value="today" /> <ng-container i18n>Today</ng-container></label
-      >
-      <label ngbButtonLabel class="btn-outline-secondary">
-        <input ngbButton type="radio" value="tomorrow" /> <ng-container i18n>Tomorrow</ng-container></label
-      >
-      <label ngbButtonLabel class="btn-outline-secondary">
-        <input ngbButton type="radio" value="thisweek" /> <ng-container i18n>This week</ng-container></label
-      >
-      <label ngbButtonLabel class="btn-outline-secondary">
-        <input ngbButton type="radio" value="thisweekend" /> <ng-container i18n>This weekend</ng-container></label
-      >
-      <label ngbButtonLabel class="btn-outline-secondary">
-        <input ngbButton type="radio" value="nextweek" /> <ng-container i18n>Next week</ng-container></label
-      >
-      <label ngbButtonLabel class="btn-outline-secondary">
-        <input ngbButton type="radio" value="thismonth" /> <ng-container i18n>This month</ng-container></label
-      >
-      <label ngbButtonLabel class="btn-outline-secondary">
-        <input ngbButton type="radio" value="nextmonth" /> <ng-container i18n>Next month</ng-container></label
-      >
-    </div>
-  </div>
+  <app-date-filter (filterChangedEvent)="dateFilterChanged($event)"></app-date-filter>
 
   <div style="max-width: 40rem">
     <div *ngIf="dates.isLoading$ | async" class="spinner-border m-3" role="status">

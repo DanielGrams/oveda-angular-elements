@@ -51,6 +51,8 @@
         <div class="card-body">
           <h2 class="mt-0" i18n>Event dates</h2>
 
+          <app-date-filter (filterChangedEvent)="dateFilterChanged($event)"></app-date-filter>
+
           <div *ngIf="dates.isLoading$ | async" class="spinner-border m-3" role="status">
             <span class="sr-only">Loading&hellip;</span>
           </div>
@@ -69,7 +71,7 @@
                     <img
                       src="{{ basepath }}/image/{{ photo.id }}?s=120"
                       class="figure-img img-fluid"
-                      style="max-width: 120px"
+                      style="object-fit: cover; width: 120px; height: 120px"
                       alt="Photo"
                     />
                   </figure>

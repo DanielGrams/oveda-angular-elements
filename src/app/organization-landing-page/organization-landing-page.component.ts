@@ -1,9 +1,9 @@
-import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Input, OnInit } from '@angular/core';
+import { Input, OnInit, ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
 import { OrganizationsService, Organization, EventDateSearchResponse, Configuration } from '@oveda/oveda-api';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { DateFilterComponent } from '../shared/date-filter/date-filter.component';
 import { StatusContent } from '../statuscontent';
 
 @Component({
@@ -12,8 +12,34 @@ import { StatusContent } from '../statuscontent';
   styleUrls: ['./organization-landing-page.component.scss'],
 })
 export class OrganizationLandingPageComponent implements OnInit {
-  @Input() organizationid: any;
   @Input() basepath = '';
+  @Input() set organizationid(value: any) {
+    this._organizationId = value;
+    this.organization.trigger$.next(undefined);
+    this.dates.trigger$.next(undefined);
+  }
+  @Input() set datefilterpreset(value: string) {
+    this._dateFilterPreset = value;
+    if (this._dateFilterComponent) {
+      this._dateFilterComponent.dateFilter = value;
+    }
+  }
+
+  @ViewChild(DateFilterComponent)
+  set dateFilterComponent(value: DateFilterComponent) {
+    if (value === this._dateFilterComponent) {
+      return;
+    }
+
+    this._dateFilterComponent = value;
+
+    setTimeout(() => {
+      if (this._dateFilterComponent && this._dateFilterPreset) {
+        this._dateFilterComponent.dateFilter = this._dateFilterPreset;
+      }
+      this.dates.trigger$.next(undefined);
+    });
+  }
   page = 1;
   perPage = 10;
 
@@ -25,18 +51,39 @@ export class OrganizationLandingPageComponent implements OnInit {
 
   public organizationsService!: OrganizationsService;
 
+  private _organizationId: any;
+  private _dateFilterPreset = '';
+  private _dateFilterComponent: DateFilterComponent | undefined;
+
   constructor(private httpClient: HttpClient) {
-    this.loadOrganization = () => this.organizationsService.apiV1OrganizationsIdGet(this.organizationid);
+    this.loadOrganization = () => {
+      if (!this._organizationId) {
+        return of(undefined);
+      }
+
+      return this.organizationsService.apiV1OrganizationsIdGet(this._organizationId);
+    };
     this.organization = new StatusContent<Organization>(this.loadOrganization);
 
-    this.loadDates = () =>
-      this.organizationsService.apiV1OrganizationsIdEventDatesSearchGet(
-        this.organizationid,
+    this.loadDates = () => {
+      if (!this._dateFilterComponent) {
+        return of(undefined);
+      }
+
+      return this.organizationsService.apiV1OrganizationsIdEventDatesSearchGet(
+        this._organizationId,
         this.page,
         this.perPage,
         undefined,
-        formatDate(new Date(), 'yyyy-MM-dd', 'en', 'Europe/Berlin')
+        this._dateFilterComponent.dateFrom.format('YYYY-MM-DD'),
+        this._dateFilterComponent.dateTo.format('YYYY-MM-DD'),
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        '-rating'
       );
+    };
     this.dates = new StatusContent<EventDateSearchResponse>(this.loadDates);
   }
 
@@ -46,11 +93,15 @@ export class OrganizationLandingPageComponent implements OnInit {
     }
 
     this.organization.trigger$.next(undefined);
-    this.dates.trigger$.next(undefined);
   }
 
   onDatesPageChange(page: number) {
     this.page = page;
+    this.dates.trigger$.next(undefined);
+  }
+
+  dateFilterChanged(value: string) {
+    this.page = 1;
     this.dates.trigger$.next(undefined);
   }
 }

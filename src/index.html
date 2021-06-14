@@ -19,8 +19,12 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   </head>
   <body class="mat-typography">
-    <event-date-search basepath="https://oveda.de"></event-date-search>
-    <!--<organization-landing-page basepath="https://oveda.de" organizationid="1"></organization-landing-page>-->
+    <event-date-search basepath="http://127.0.0.1:5000" datefilterpreset="thismonth"></event-date-search>
+    <organization-landing-page
+      basepath="http://127.0.0.1:5000"
+      organizationid="2"
+      datefilterpreset="thismonth"
+    ></organization-landing-page>
     <script
       src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
       integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
