@@ -11,7 +11,7 @@
       <div *ngIf="org.logo" class="mr-4 float-sm-left">
         <figure class="figure mx-auto">
           <img
-            src="{{ basepath }}/image/{{ org.logo.id }}?s=120"
+            src="{{ basepath }}{{ org.logo.image_url }}"
             class="figure-img img-fluid"
             style="max-width: 120px"
             alt="Logo"
@@ -69,7 +69,7 @@
                 <div class="d-none d-sm-block mr-4 float-left rounded">
                   <figure *ngIf="event_date.event?.photo as photo; else noPhoto" class="figure mx-auto">
                     <img
-                      src="{{ basepath }}/image/{{ photo.id }}?s=120"
+                      src="{{ basepath }}{{ photo.image_url }}"
                       class="figure-img img-fluid"
                       style="object-fit: cover; width: 120px; height: 120px"
                       alt="Photo"
@@ -96,7 +96,8 @@
                   </span>
                 </div>
                 <div>
-                  {{ event_date.event?.place?.name }}
+                  <div>{{ event_date.event?.place?.name }}</div>
+                  <div>{{ event_date.event?.place?.location?.city }}</div>
                 </div>
               </a>
             </div>

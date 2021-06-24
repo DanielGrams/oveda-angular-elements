@@ -46,7 +46,7 @@
               <div style="flex: 0 1 80px">
                 <figure *ngIf="event_date.event?.photo as photo; else noPhoto" class="figure mx-auto">
                   <img
-                    src="{{ basepath }}/image/{{ photo.id }}?s=80"
+                    src="{{ basepath }}{{ photo.image_url }}"
                     class="figure-img img-fluid rounded"
                     style="object-fit: cover; width: 80px; height: 80px"
                     alt="Photo"
