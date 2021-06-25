@@ -6,8 +6,8 @@
 </div>
 
 <div *ngIf="organization.content$ | async as org" class="organization">
-  <div class="w-normal mx-auto">
-    <div class="p-3 clearfix">
+  <div class="w-normal p-3">
+    <div class="clearfix">
       <div *ngIf="org.logo" class="mr-4 float-sm-left">
         <figure class="figure mx-auto">
           <img
@@ -43,79 +43,89 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="d-flex bg-light p-3">
-    <div class="mx-auto" style="width: 40rem">
-      <div class="card mb-3">
-        <div class="card-body">
-          <h2 class="mt-0" i18n>Event dates</h2>
+    <h2 class="mb-0" i18n>Event dates</h2>
 
-          <app-date-filter (filterChangedEvent)="dateFilterChanged($event)"></app-date-filter>
+    <app-date-filter (filterChangedEvent)="dateFilterChanged($event)"></app-date-filter>
 
-          <div *ngIf="dates.isLoading$ | async" class="spinner-border m-3" role="status">
-            <span class="sr-only">Loading&hellip;</span>
-          </div>
-          <div *ngIf="dates.error$ | async as error" class="alert alert-danger m-3" role="alert">
-            {{ error.message }}
-          </div>
-          <ng-container *ngIf="dates.content$ | async as response">
-            <div class="list-group list-group-flush">
-              <a
-                *ngFor="let event_date of response.items"
-                href="{{ basepath }}/eventdate/{{ event_date.id }}"
-                class="list-group-item list-group-item-action flex-column align-items-start pl-0 pr-0"
-              >
-                <div class="d-none d-sm-block mr-4 float-left rounded">
+    <div style="max-width: 40rem">
+      <div *ngIf="dates.isLoading$ | async" class="spinner-border m-3" role="status">
+        <span class="sr-only">Loading&hellip;</span>
+      </div>
+      <div *ngIf="dates.error$ | async as error" class="alert alert-danger m-3" role="alert">
+        {{ error.message }}
+      </div>
+      <ng-container *ngIf="dates.content$ | async as response">
+        <div class="list-group list-group-flush">
+          <a
+            *ngFor="let event_date of response.items"
+            href="{{ basepath }}/eventdate/{{ event_date.id }}"
+            class="list-group-item list-group-item-action px-2"
+          >
+            <div class="container">
+              <div class="row">
+                <div style="flex: 0 0 2rem">
+                  <div class="text-center text-body" style="font-size: 1.4rem">
+                    {{ event_date.start | date: 'dd' }}
+                  </div>
+                  <div class="text-center text-uppercase text-muted" style="font-size: 0.8rem">
+                    {{ event_date.start | date: 'MMM' }}
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="text-body" style="font-size: 1.1rem">
+                    {{ event_date.event?.name }}
+                    <span class="small" style="vertical-align: middle">
+                      <app-warning-pills [event]="event_date.event"></app-warning-pills>
+                    </span>
+                  </div>
+                  <div class="text-muted" style="font-size: 0.85rem">
+                    <div>
+                      {{ event_date.start | date: 'EE' }} {{ event_date.start | date: 'shortTime' }}
+                      <ng-container i18n>o'clock</ng-container>
+                    </div>
+                    <div>{{ event_date.event?.place?.name }}</div>
+                    <div>{{ event_date.event?.place?.location?.city }}</div>
+                  </div>
+                </div>
+
+                <div style="flex: 0 1 80px">
                   <figure *ngIf="event_date.event?.photo as photo; else noPhoto" class="figure mx-auto">
                     <img
                       src="{{ basepath }}{{ photo.image_url }}"
-                      class="figure-img img-fluid"
-                      style="object-fit: cover; width: 120px; height: 120px"
+                      class="figure-img img-fluid rounded"
+                      style="object-fit: cover; width: 80px; height: 80px"
                       alt="Photo"
                     />
                   </figure>
 
                   <ng-template #noPhoto>
                     <div
-                      class="bg-light d-flex align-items-center justify-content-center"
-                      style="width: 120px; height: 120px"
+                      class="bg-light d-flex align-items-center justify-content-center rounded"
+                      style="width: 80px; height: 80px"
                     >
                       <i class="fa-calendar far h1 text-muted"></i>
                     </div>
                   </ng-template>
                 </div>
-
-                <div class="font-weight-bold text-uppercase mb-1">
-                  {{ event_date.start | date: 'fullDate' }} {{ event_date.start | date: 'shortTime' }}
-                </div>
-                <div class="text-body font-weight-bold mb-1" style="font-size: 1.2rem">
-                  {{ event_date.event?.name }}
-                  <span class="small" style="vertical-align: middle">
-                    <app-warning-pills [event]="event_date.event"></app-warning-pills>
-                  </span>
-                </div>
-                <div>
-                  <div>{{ event_date.event?.place?.name }}</div>
-                  <div>{{ event_date.event?.place?.location?.city }}</div>
-                </div>
-              </a>
+              </div>
             </div>
-
-            <ngb-pagination
-              [(page)]="page"
-              [pageSize]="perPage"
-              [collectionSize]="response.total"
-              (pageChange)="onDatesPageChange(page)"
-              [maxSize]="3"
-              [rotate]="true"
-              [boundaryLinks]="true"
-              [ellipses]="false"
-              class="d-flex justify-content-center mt-2"
-            ></ngb-pagination>
-          </ng-container>
+          </a>
         </div>
-      </div>
+
+        <ngb-pagination
+          [(page)]="page"
+          [pageSize]="perPage"
+          [collectionSize]="response.total"
+          (pageChange)="onDatesPageChange(page)"
+          [maxSize]="3"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          [ellipses]="false"
+          class="d-flex justify-content-center mt-2"
+        ></ngb-pagination>
+      </ng-container>
     </div>
   </div>
 </div>
